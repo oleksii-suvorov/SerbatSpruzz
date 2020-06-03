@@ -1,0 +1,5 @@
+Serbatoio Default: Capienza 100 l, Capacita attuale 100 l, Portata 10.0 l/m
+Serbatoio Nord: Capienza 50 l, Capacita attuale 50 l, Portata 20.0 l/m
+Spruzzatore Default: portata 15.0 l/m
+Spruzzatore Sud: portata 10.0 l/m
+Spruzzatore Default: portata 5.0 l/m
