@@ -1,7 +1,12 @@
-import java.util.Objects;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+
 public class TestIrrigazione {
 
-public static void main(String[] args) {
+public static void main(String[] args) throws FileNotFoundException {
 		
 		//un serbatoio è definito dalla sua capienza in litri e portata in litri/minuto
 		Serbatoio serbatoio1 = new Serbatoio(100, 10.0);
@@ -15,7 +20,7 @@ public static void main(String[] args) {
 		
 		assert serbatoio1.getNome().equals("Default");
 		System.out.println(serbatoio2.toString());
-		assert serbatoio2.toString().equals("Serbatoio Nord: Capienza 50 l, Capacità attuale 50 l, Portata 20.0 l/m");
+		assert serbatoio2.toString().equals("Serbatoio Nord: Capienza 50 l, Capacita attuale 50 l, Portata 20.0 l/m");
 		
 		
 		//Uno spruzzatore è definito da quanta acqua eroga in l/m e opzionalmente da un nome
@@ -57,7 +62,7 @@ public static void main(String[] args) {
 //		
 		System.out.println();
 		System.out.println(sistema.toString());
-		assert sistema.toString().equals("Serbatoio Default capacità attuale 100 - Serbatoio Nord capacità attuale 50");
+		assert sistema.toString().equals("Serbatoio Default capacita attuale 100 - Serbatoio Nord capacita attuale 50");
 //		
 //		//attiva tutti gli spruzzatori del sistema per un minuto
 //		//restituisce i litri usati
@@ -66,7 +71,7 @@ public static void main(String[] args) {
 		assert sistema.attiva() == 30.0;
 //		
 		System.out.println(sistema.toString());
-		assert sistema.toString().equals("Serbatoio Default capacità attuale 85 - Serbatoio Nord capacità attuale 35");
+		assert sistema.toString().equals("Serbatoio Default capacita attuale 85 - Serbatoio Nord capacita attuale 35");
 //
 //		//stampa l'elenco dei serbatoio e il loro stato, e l'elenco degli spruzzatori
 		sistema.printStato();
@@ -76,18 +81,35 @@ public static void main(String[] args) {
 		assert sistema.attiva(2) == 60.0;
 //		
 		System.out.println(sistema);
-		assert sistema.toString().equals("Serbatoio Default capacità attuale 55 - Serbatoio Nord capacità attuale 5");
+		assert sistema.toString().equals("Serbatoio Default capacita attuale 55 - Serbatoio Nord capacita attuale 5");
 //
 //		//il sistema si blocca e non eroga acqua
 //		//se anche solo uno dei serbatoio non ha abbastanza acqua per soddisfare la richiesta
 		assert sistema.attiva() == 0;		
 		System.out.println(sistema);
-		assert sistema.toString().equals("Serbatoio Default capacità attuale 55 - Serbatoio Nord capacità attuale 5");
+		assert sistema.toString().equals("Serbatoio Default capacita attuale 55 - Serbatoio Nord capacita attuale 5");
 //		
 		sistema.riempiSerbatoi();
 		System.out.println(sistema);
-		assert sistema.toString().equals("Serbatoio Default capacità attuale 100 - Serbatoio Nord capacità attuale 50");
-
+		assert sistema.toString().equals("Serbatoio Default capacita attuale 100 - Serbatoio Nord capacita attuale 50");
+		readFromFile("files/readFromFile.txt");
 	}
-	
+
+	public static void readFromFile(String file) throws FileNotFoundException {
+		FileReader fr = new FileReader(file);
+		try(BufferedReader br = new BufferedReader(fr)) {
+			String character = "";
+			String[] configurazione = null;
+			while((character = br.readLine()) != null) {
+				configurazione = character.split(" ");
+			}
+
+			System.out.println(Arrays.toString(configurazione));
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
