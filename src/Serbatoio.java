@@ -50,7 +50,7 @@ public class Serbatoio {
 	
 	public String toString() {
 		return "Serbatoio " + this.nome + ": Capienza " +
-	this.capienza + " l, Capacità attuale " + this.getCapacitaAttuale + 
+	this.capienza + " l, Capacita attuale " + this.getCapacitaAttuale +
 	" l, Portata " + this.portata + " l/m";
 	}
 	

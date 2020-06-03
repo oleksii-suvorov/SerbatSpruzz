@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class SistemaIrrigazione {
 	
 	final int MAX_SERBATOI;
@@ -124,7 +122,7 @@ public class SistemaIrrigazione {
 		String s = "";
 		
 		for(int i = 0; i < nSerbatoi; i++) {
-			s+="Serbatoio " + serbatoi[i].getNome() + " capacità attuale " + (int)serbatoi[i].getCapacitaAttuale();
+			s+="Serbatoio " + serbatoi[i].getNome() + " capacita attuale " + (int)serbatoi[i].getCapacitaAttuale();
 			
 			if(i < nSerbatoi - 1)
 				s += " - ";
