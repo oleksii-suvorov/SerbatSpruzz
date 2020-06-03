@@ -114,6 +114,14 @@ public class SistemaIrrigazione {
 	public double getCapacitaResidua() {
 		return this.capacitaResidua;
 	}
+
+	public Serbatoio[] getSerbatoi() {
+		return this.serbatoi;
+	}
+
+	public Spruzzatore[] getSpruzzatori() {
+		return this.spruzzatori;
+	}
 	
 	@Override
 	public String toString() {
