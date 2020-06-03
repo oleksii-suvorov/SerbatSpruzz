@@ -1,8 +1,7 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class TestIrrigazione {
 
@@ -92,7 +91,34 @@ public static void main(String[] args) throws FileNotFoundException {
 		sistema.riempiSerbatoi();
 		System.out.println(sistema);
 		assert sistema.toString().equals("Serbatoio Default capacita attuale 100 - Serbatoio Nord capacita attuale 50");
-		readFromFile("files/readFromFile.txt");
+
+		ExecutorService pool = Executors.newFixedThreadPool(2);
+		pool.execute(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					readFromFile("files/readFromFile.txt");
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		pool.execute(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					writeToFile("files/writeToFile.txt", sistema);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		pool.shutdown();
+
 	}
 
 	public static void readFromFile(String file) throws FileNotFoundException {
@@ -106,6 +132,23 @@ public static void main(String[] args) throws FileNotFoundException {
 
 			System.out.println(Arrays.toString(configurazione));
 
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void writeToFile(String file, SistemaIrrigazione sistema) throws IOException {
+		FileWriter fw = new FileWriter(file);
+		try(BufferedWriter br = new BufferedWriter(fw)) {
+			StringBuilder sb = new StringBuilder();
+			for (Serbatoio serb : sistema.getSerbatoi()) {
+				br.append(serb.toString()).append("\n");
+			}
+			for (Spruzzatore spruzz : sistema.getSpruzzatori()) {
+				br.append(spruzz.toString()).append("\n");
+			}
+			fw.write(sb.toString());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
