@@ -120,7 +120,18 @@ public class SistemaIrrigazione {
 	@Override
 	public String toString() {
 		
-		return "Serbatoio " + serbatoi[0].getNome() + " capacità attuale " + (int)serbatoi[0].getCapacitaAttuale() + 
-				" - Serbatoio " + serbatoi[1].getNome() + " capacità attuale " + (int)serbatoi[1].getCapacitaAttuale();
+
+		String s = "";
+		
+		for(int i = 0; i < nSerbatoi; i++) {
+			s+="Serbatoio " + serbatoi[i].getNome() + " capacità attuale " + (int)serbatoi[i].getCapacitaAttuale();
+			
+			if(i < nSerbatoi - 1)
+				s += " - ";
+
+		}
+		
+		return s;
+		
 	}
 }

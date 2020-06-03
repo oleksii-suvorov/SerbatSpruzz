@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Serbatoio {
 	private int capienza;
@@ -46,6 +52,34 @@ public class Serbatoio {
 		return "Serbatoio " + this.nome + ": Capienza " +
 	this.capienza + " l, Capacità attuale " + this.getCapacitaAttuale + 
 	" l, Portata " + this.portata + " l/m";
+	}
+	
+	
+
+	public void readStatus(String file) throws IOException {
+		try(FileReader in = new FileReader(file);
+			BufferedReader br = new BufferedReader(in);) {
+			
+			for(String s = br.readLine(); s != null; s = br.readLine()) {
+				System.out.println(s);
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void writeStatus(String file) throws IOException {
+		try(FileWriter out = new FileWriter(file);
+			BufferedWriter bw = new BufferedWriter(out);) {
+			String s = "" + getCapacitaAttuale;
+			bw.append(s);
+			bw.flush();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
